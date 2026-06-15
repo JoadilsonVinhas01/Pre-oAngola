@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Preço Angola — plataforma angolana especializada em informações estratégicas e análises do mercado nacional.">
+  <meta name="keywords" content="Preço Angola, mercado angolano, preços, economia Angola">
+  <meta name="author" content="Joadilson António Vinhas">
+  <meta name="theme-color" content="#080808">
+  <title>Preço Angola — Início</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* HERO */
+    .hero {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 80px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(250,204,21,0.08) 0%, transparent 60%),
+        repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,0.01) 60px, rgba(255,255,255,0.01) 61px),
+        repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.01) 60px, rgba(255,255,255,0.01) 61px);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(250,204,21,0.08);
+      color: var(--gold);
+      border: 1px solid rgba(250,204,21,0.2);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: 40px;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(44px, 8vw, 88px);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -2px;
+      max-width: 900px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--gold);
+      position: relative;
+    }
+
+    .hero h1 em::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 0; right: 0;
+      height: 3px;
+      background: var(--gold);
+      border-radius: 2px;
+      opacity: 0.4;
+    }
+
+    .hero-sub {
+      color: var(--text-muted);
+      font-size: 18px;
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 44px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s forwards;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.8s forwards;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 72px;
+      padding-top: 48px;
+      border-top: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp 0.8s 1s forwards;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(20px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    /* FEATURES STRIP */
+    .features-strip {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 56px 0;
+    }
+
+    .features-strip-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .features-strip-header h2 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    /* MARQUEE strip */
+    .marquee-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+      background: var(--bg-surface);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 40px;
+      animation: marquee 25s linear infinite;
+      white-space: nowrap;
+    }
+
+    .marquee-track span {
+      color: var(--text-dim);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .marquee-track span strong { color: var(--gold); }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* HIGHLIGHT SECTION */
+    .highlight-section {
+      padding: 80px 0;
+    }
+
+    .highlight-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .highlight-text h2 {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 4vw, 44px);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .highlight-text h2 span { color: var(--gold); }
+
+    .highlight-text p {
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 16px;
+      font-size: 16px;
+    }
+
+    .highlight-text .btn { margin-top: 16px; }
+
+    .highlight-visual {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .highlight-visual::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(250,204,21,0.1) 0%, transparent 70%);
+    }
+
+    .mini-chart { margin-bottom: 24px; }
+
+    .mini-chart-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .mini-chart-label span { font-size: 13px; color: var(--text-muted); }
+    .mini-chart-label strong { font-size: 15px; }
+
+    .bar-track {
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: var(--gold);
+      border-radius: 3px;
+      transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
+      width: 0;
+    }
+
+    /* TESTIMONIALS */
+    .testimonials { padding: 80px 0; background: var(--bg-surface); }
+
+    .testimonial-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: var(--transition);
+    }
+
+    .testimonial-card.visible { opacity: 1; transform: translateY(0); }
+
+    .testimonial-card blockquote {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.8;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .testimonial-meta { display: flex; align-items: center; gap: 12px; }
+
+    .testimonial-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(250,204,21,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+
+    .testimonial-name { font-weight: 600; font-size: 14px; }
+    .testimonial-role { color: var(--text-dim); font-size: 12px; }
+
+    /* CTA SECTION */
+    .cta-section {
+      padding: 100px 0;
+      text-align: center;
+      position: relative;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(250,204,21,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800;
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+
+    .cta-section h2 span { color: var(--gold); }
+    .cta-section p { color: var(--text-muted); font-size: 18px; margin-bottom: 40px; }
+
+    @media (max-width: 768px) {
+      .highlight-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav-container">
+    <a href="preco.html" class="logo">Preço<span>Angola</span></a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="preco.html" class="active">Início</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="servico.html">Serviços</a></li>
+        <li><a href="contacto.html">Contactos</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" title="Alternar tema">☀️</button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-eyebrow">🇦🇴 Mercado Angolano em Tempo Real</div>
+    <h1>Conheça o <em>mercado angolano</em> como nunca antes.</h1>
+    <p class="hero-sub">
+      A Preço Angola fornece informações estratégicas sobre preços, tendências económicas,
+      análises de mercado e oportunidades de negócio em Angola.
+    </p>
+    <div class="hero-ctas">
+      <a href="servico.html" class="btn btn-primary">Explorar Serviços →</a>
+      <a href="sobre.html" class="btn btn-outline">Quem Somos</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-box">
+        <div class="number" data-count="500">0</div>
+        <div class="label">Produtos monitorados</div>
+      </div>
+      <div class="stat-box">
+        <div class="number" data-count="18">0</div>
+        <div class="label">Províncias cobertas</div>
+      </div>
+      <div class="stat-box">
+        <div class="number" data-count="95">0</div>
+        <div class="label">% precisão de dados</div>
+      </div>
+      <div class="stat-box">
+        <div class="number" data-count="1200">0</div>
+        <div class="label">Utilizadores ativos</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>📦 <strong>Bens Alimentares</strong> · Angola</span>
+      <span>📊 <strong>Análise Económica</strong> · Mensal</span>
+      <span>💼 <strong>Oportunidades</strong> · Negócio</span>
+      <span>🏗️ <strong>Construção Civil</strong> · Preços</span>
+      <span>⛽ <strong>Combustíveis</strong> · Atualizado</span>
+      <span>🌾 <strong>Agronegócio</strong> · Relatórios</span>
+      <span>📦 <strong>Bens Alimentares</strong> · Angola</span>
+      <span>📊 <strong>Análise Económica</strong> · Mensal</span>
+      <span>💼 <strong>Oportunidades</strong> · Negócio</span>
+      <span>🏗️ <strong>Construção Civil</strong> · Preços</span>
+      <span>⛽ <strong>Combustíveis</strong> · Atualizado</span>
+      <span>🌾 <strong>Agronegócio</strong> · Relatórios</span>
+    </div>
+  </div>
+
+  <!-- FEATURES STRIP -->
+  <section class="features-strip">
+    <div class="container">
+      <div class="features-strip-header">
+        <p class="eyebrow" style="display:inline-block;background:rgba(250,204,21,0.1);color:var(--gold);border:1px solid rgba(250,204,21,0.2);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:6px 16px;border-radius:40px;">O que oferecemos</p>
+        <h2 style="margin-top:16px;">Tudo o que precisa para <span style="color:var(--gold)">decidir melhor</span></h2>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-icon">📈</div>
+          <h3>Monitorização de Preços</h3>
+          <p>Acompanhamento em tempo real de preços de produtos e serviços no mercado angolano, de norte a sul do país.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🔍</div>
+          <h3>Análises Económicas</h3>
+          <p>Relatórios detalhados sobre tendências económicas, inflação e comportamento do mercado angolano.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎯</div>
+          <h3>Inteligência Comercial</h3>
+          <p>Dados estratégicos e estudos de mercado para apoiar decisões empresariais com precisão e confiança.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🌐</div>
+          <h3>Cobertura Nacional</h3>
+          <p>Informações das 18 províncias de Angola, com foco nos principais centros urbanos e mercados rurais.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📱</div>
+          <h3>Relatórios Digitais</h3>
+          <p>Acesso imediato a relatórios e análises em formato digital, atualizados regularmente pela nossa equipa.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🤝</div>
+          <h3>Apoio ao Empreendedor</h3>
+          <p>Recursos e informações pensados para empreendedores, investidores e pequenos negócios angolanos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHT -->
+  <section class="highlight-section">
+    <div class="container">
+      <div class="highlight-grid">
+        <div class="highlight-text">
+          <span class="badge">Dados de Mercado</span>
+          <h2 style="margin-top:16px;">Decisões mais inteligentes com <span>dados confiáveis</span></h2>
+          <p>
+            Em Angola, o acesso a informação de mercado organizada e confiável continua a ser
+            um desafio para empresas e empreendedores. A Preço Angola nasceu para mudar isso.
+          </p>
+          <p>
+            Agregamos dados de múltiplas fontes, tratamos a informação com rigor e entregamos
+            análises práticas que ajudam negócios a crescer com base em factos, não em suposições.
+          </p>
+          <a href="servico.html" class="btn btn-primary">Ver todos os serviços →</a>
+        </div>
+        <div class="highlight-visual" id="chartVisual">
+          <p style="font-size:13px;color:var(--text-dim);margin-bottom:20px;font-weight:600;letter-spacing:1px;text-transform:uppercase;">Índice de Preços — Luanda 2026</p>
+          <div class="mini-chart">
+            <div class="mini-chart-label"><span>Bens Alimentares</span><strong>+12.4%</strong></div>
+            <div class="bar-track"><div class="bar-fill" data-width="82"></div></div>
+          </div>
+          <div class="mini-chart">
+            <div class="mini-chart-label"><span>Combustíveis</span><strong>+8.1%</strong></div>
+            <div class="bar-track"><div class="bar-fill" data-width="60"></div></div>
+          </div>
+          <div class="mini-chart">
+            <div class="mini-chart-label"><span>Construção Civil</span><strong>+15.7%</strong></div>
+            <div class="bar-track"><div class="bar-fill" data-width="90"></div></div>
+          </div>
+          <div class="mini-chart">
+            <div class="mini-chart-label"><span>Serviços</span><strong>+5.3%</strong></div>
+            <div class="bar-track"><div class="bar-fill" data-width="40"></div></div>
+          </div>
+          <div class="mini-chart">
+            <div class="mini-chart-label"><span>Tecnologia</span><strong>+3.8%</strong></div>
+            <div class="bar-track"><div class="bar-fill" data-width="28"></div></div>
+          </div>
+          <p style="font-size:12px;color:var(--text-dim);margin-top:20px;">* Dados ilustrativos baseados em tendências do mercado angolano</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="badge">Testemunhos</span>
+          <h2 style="margin-top:12px;">O que dizem sobre nós</h2>
+        </div>
+      </div>
+      <div class="grid-3">
+        <div class="testimonial-card">
+          <blockquote>"A Preço Angola transformou a forma como tomo decisões de compra para o meu negócio. Informação clara e actualizada."</blockquote>
+          <div class="testimonial-meta">
+            <div class="testimonial-avatar">👨🏾‍💼</div>
+            <div>
+              <div class="testimonial-name">Carlos Mendes</div>
+              <div class="testimonial-role">Comerciante, Luanda</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <blockquote>"Uso os relatórios mensais para acompanhar a inflação no sector alimentar. Indispensável para qualquer empresário angolano."</blockquote>
+          <div class="testimonial-meta">
+            <div class="testimonial-avatar">👩🏾‍💼</div>
+            <div>
+              <div class="testimonial-name">Ana Ferreira</div>
+              <div class="testimonial-role">Gestora, Benguela</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <blockquote>"Como investidor, precisava de dados de mercado angolano de qualidade. A plataforma entrega exactamente isso."</blockquote>
+          <div class="testimonial-meta">
+            <div class="testimonial-avatar">👨🏾‍🏫</div>
+            <div>
+              <div class="testimonial-name">Pedro Lopes</div>
+              <div class="testimonial-role">Investidor, Huambo</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Pronto para conhecer o <span>mercado angolano</span>?</h2>
+      <p>Entre em contacto e descubra como podemos apoiar o seu negócio.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="contacto.html" class="btn btn-primary">Contactar agora →</a>
+        <a href="servico.html" class="btn btn-outline">Ver serviços</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h2>PreçoAngola</h2>
+        <p>Plataforma angolana focada em informações estratégicas, preços de mercado, análises económicas e oportunidades de negócio.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Navegação</h3>
+        <ul>
+          <li><a href="preco.html">Início</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="servico.html">Serviços</a></li>
+          <li><a href="contacto.html">Contactos</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contacto</h3>
+        <ul>
+          <li><span>+244 922 579 627</span></li>
+          <li><span>joadilsonv01@gmail.com</span></li>
+          <li><span>Talatona, Belas — ISPTEC</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Preço Angola. Todos os direitos reservados.</p>
+      <div class="footer-links">
+        <a href="#">Privacidade</a>
+        <a href="#">Termos</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" title="Voltar ao topo">↑</button>
+<div id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>

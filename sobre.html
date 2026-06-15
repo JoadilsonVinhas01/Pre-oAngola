@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Saiba mais sobre a Preço Angola — quem somos, missão, visão e o fundador.">
+  <meta name="author" content="Joadilson António Vinhas">
+  <title>Preço Angola — Sobre</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .team-section { padding: 80px 0; background: var(--bg-surface); }
+
+    .founder-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 40px;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: var(--transition);
+    }
+
+    .founder-card.visible { opacity: 1; transform: translateY(0); }
+
+    .founder-avatar {
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(250,204,21,0.2), rgba(250,204,21,0.05));
+      border: 2px solid rgba(250,204,21,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 42px;
+    }
+
+    .founder-info h3 { font-family: var(--font-display); font-size: 22px; margin-bottom: 4px; }
+    .founder-info .role { color: var(--gold); font-size: 14px; font-weight: 600; margin-bottom: 16px; }
+    .founder-info p { color: var(--text-muted); font-size: 15px; line-height: 1.8; }
+
+    .timeline-section { padding: 80px 0; }
+
+    .timeline {
+      position: relative;
+      max-width: 640px;
+      margin: 0 auto;
+      padding-left: 32px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: var(--transition);
+    }
+
+    .timeline-item.visible { opacity: 1; transform: translateX(0); }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -28px;
+      top: 6px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--bg);
+    }
+
+    .timeline-year {
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .timeline-item h4 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .timeline-item p { color: var(--text-muted); font-size: 15px; line-height: 1.7; }
+
+    .values-section { padding: 80px 0; }
+
+    .values-section .section-intro {
+      text-align: center;
+      max-width: 560px;
+      margin: 0 auto 48px;
+    }
+
+    @media (max-width: 600px) {
+      .founder-card { grid-template-columns: 1fr; text-align: center; }
+      .founder-avatar { margin: 0 auto; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav-container">
+    <a href="preco.html" class="logo">Preço<span>Angola</span></a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="preco.html">Início</a></li>
+        <li><a href="sobre.html" class="active">Sobre</a></li>
+        <li><a href="servico.html">Serviços</a></li>
+        <li><a href="contacto.html">Contactos</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" title="Alternar tema">☀️</button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Quem Somos</span>
+      <h2>Sobre a Preço Angola</h2>
+      <p>Transformamos informações do mercado angolano em conhecimento acessível, organizado e útil para quem precisa decidir melhor.</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- MISSÃO, VISÃO, VALORES -->
+  <section class="section">
+    <div class="container">
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-icon">🎯</div>
+          <h3>Nossa Missão</h3>
+          <p>Facilitar o acesso à informação económica e comercial em Angola, promovendo transparência, conhecimento de mercado e melhores oportunidades de negócio para todos.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🚀</div>
+          <h3>Nossa Visão</h3>
+          <p>Tornar-nos a principal referência angolana em dados de mercado, análises económicas e inteligência comercial, reconhecidos pela qualidade e rigor da nossa informação.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">💡</div>
+          <h3>Nossa Proposta</h3>
+          <p>Entregar dados precisos, análises claras e relatórios práticos que permitam a consumidores, empreendedores e investidores tomarem decisões informadas e confiantes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUEM SOMOS TEXTO -->
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
+        <div>
+          <span class="badge">A nossa história</span>
+          <h2 style="font-family:var(--font-display);font-size:clamp(28px,4vw,38px);font-weight:800;margin:16px 0 20px;line-height:1.1;">
+            Uma ideia nascida da necessidade real
+          </h2>
+          <p style="color:var(--text-muted);line-height:1.8;margin-bottom:16px;">
+            A Preço Angola nasceu da observação de uma realidade simples: o mercado angolano é dinâmico,
+            mas a informação sobre preços e tendências económicas estava dispersa, desorganizada e inacessível
+            para a maioria das pessoas.
+          </p>
+          <p style="color:var(--text-muted);line-height:1.8;margin-bottom:16px;">
+            Com foco na recolha estruturada, análise rigorosa e distribuição clara de dados,
+            a plataforma foi construída para preencher essa lacuna — servindo consumidores,
+            empreendedores, investidores e empresas de todo o país.
+          </p>
+          <p style="color:var(--text-muted);line-height:1.8;">
+            Acreditamos que o acesso à informação económica de qualidade é um direito, não um privilégio.
+            E estamos aqui para torná-lo realidade em Angola.
+          </p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div class="card" style="text-align:center;">
+            <div style="font-family:var(--font-display);font-size:36px;font-weight:800;color:var(--gold);margin-bottom:8px;">18</div>
+            <div style="color:var(--text-muted);font-size:14px;">Províncias monitorizadas</div>
+          </div>
+          <div class="card" style="text-align:center;">
+            <div style="font-family:var(--font-display);font-size:36px;font-weight:800;color:var(--gold);margin-bottom:8px;">500+</div>
+            <div style="color:var(--text-muted);font-size:14px;">Produtos acompanhados</div>
+          </div>
+          <div class="card" style="text-align:center;">
+            <div style="font-family:var(--font-display);font-size:36px;font-weight:800;color:var(--gold);margin-bottom:8px;">1.2k</div>
+            <div style="color:var(--text-muted);font-size:14px;">Utilizadores activos</div>
+          </div>
+          <div class="card" style="text-align:center;">
+            <div style="font-family:var(--font-display);font-size:36px;font-weight:800;color:var(--gold);margin-bottom:8px;">95%</div>
+            <div style="color:var(--text-muted);font-size:14px;">Precisão dos dados</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALORES -->
+  <section class="values-section" style="background:var(--bg-surface);">
+    <div class="container">
+      <div class="values-section section-intro" style="text-align:center;max-width:560px;margin:0 auto 48px;">
+        <span class="badge">O que nos define</span>
+        <h2 style="font-family:var(--font-display);font-size:clamp(26px,4vw,36px);font-weight:800;margin-top:16px;">Os nossos valores</h2>
+      </div>
+      <div class="grid-4">
+        <div class="card">
+          <div class="card-icon">🔒</div>
+          <h3>Rigor</h3>
+          <p>Dados tratados com precisão e verificados antes de chegarem ao utilizador.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🌍</div>
+          <h3>Acessibilidade</h3>
+          <p>Informação clara, em português, disponível para qualquer angolano.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📣</div>
+          <h3>Transparência</h3>
+          <p>Fontes identificadas, metodologias abertas, comunicação honesta.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <h3>Inovação</h3>
+          <p>Uso de tecnologia para transformar dados brutos em inteligência de mercado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUNDADOR -->
+  <section class="team-section">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:48px;">
+        <span class="badge">Fundador</span>
+        <h2 style="font-family:var(--font-display);font-size:clamp(26px,4vw,36px);font-weight:800;margin-top:16px;">A pessoa por trás do projecto</h2>
+      </div>
+      <div class="founder-card">
+        <div class="founder-avatar">👨🏾‍💻</div>
+        <div class="founder-info">
+          <h3>Joadilson António Vinhas</h3>
+          <div class="role">Fundador & Economista em formação</div>
+          <p>
+            Estudante de Economia e Finanças no ISPTEC, com interesse profundo em inovação,
+            análise económica e desenvolvimento do mercado angolano. A Preço Angola é o resultado
+            da sua visão de tornar a informação de mercado acessível e útil para todos os angolanos.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="timeline-section">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:48px;">
+        <span class="badge">Marcos</span>
+        <h2 style="font-family:var(--font-display);font-size:clamp(26px,4vw,36px);font-weight:800;margin-top:16px;">A nossa jornada</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">2024</div>
+          <h4>Conceito e Pesquisa</h4>
+          <p>Identificação da lacuna de informação de mercado em Angola. Início da pesquisa e desenvolvimento do conceito da plataforma.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2025</div>
+          <h4>Lançamento da Plataforma</h4>
+          <p>Desenvolvimento e lançamento da primeira versão da Preço Angola, com foco em Luanda e monitorização de bens alimentares.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2026</div>
+          <h4>Expansão Nacional</h4>
+          <p>Alargamento da cobertura para as 18 províncias, novos sectores e lançamento de relatórios económicos mensais.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">Futuro</div>
+          <h4>Referência Regional</h4>
+          <p>Visão de nos tornarmos a principal fonte de inteligência económica de Angola, com expansão para mercados da SADC.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h2>PreçoAngola</h2>
+        <p>Plataforma focada em informações estratégicas, preços de mercado e análises económicas em Angola.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Navegação</h3>
+        <ul>
+          <li><a href="preco.html">Início</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="servico.html">Serviços</a></li>
+          <li><a href="contacto.html">Contactos</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contacto</h3>
+        <ul>
+          <li><span>+244 922 579 627</span></li>
+          <li><span>joadilsonv01@gmail.com</span></li>
+          <li><span>Talatona, Belas — ISPTEC</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Preço Angola. Todos os direitos reservados.</p>
+      <div class="footer-links"><a href="#">Privacidade</a><a href="#">Termos</a></div>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" title="Voltar ao topo">↑</button>
+<div id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>

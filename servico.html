@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Serviços da Preço Angola — monitorização de preços, análises económicas e inteligência de mercado.">
+  <title>Preço Angola — Serviços</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* FILTER TABS */
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .filter-tab {
+      padding: 9px 20px;
+      border-radius: 40px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: var(--font-body);
+    }
+
+    .filter-tab:hover { border-color: var(--gold); color: var(--text); }
+    .filter-tab.active { background: var(--gold); color: #000; border-color: var(--gold); font-weight: 700; }
+
+    /* SERVICE CARD */
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .service-card.visible { opacity: 1; transform: translateY(0); }
+    .service-card:hover { background: var(--bg-card-hover); border-color: var(--border-accent); transform: translateY(-4px); }
+    .service-card[data-hidden="true"] { display: none; }
+
+    .service-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+
+    .service-icon {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      background: rgba(250,204,21,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+    }
+
+    .service-card h3 { font-family: var(--font-display); font-size: 18px; margin-bottom: 10px; }
+    .service-card p { color: var(--text-muted); font-size: 15px; line-height: 1.7; flex: 1; margin-bottom: 20px; }
+
+    .service-features {
+      list-style: none;
+      margin-bottom: 24px;
+    }
+
+    .service-features li {
+      color: var(--text-muted);
+      font-size: 13px;
+      padding: 5px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .service-features li::before {
+      content: '✓';
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .service-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .service-price { font-family: var(--font-display); font-size: 15px; color: var(--gold); font-weight: 700; }
+
+    .btn-sm {
+      padding: 9px 18px;
+      font-size: 13px;
+      border-radius: 40px;
+      background: rgba(250,204,21,0.1);
+      color: var(--gold);
+      border: 1px solid rgba(250,204,21,0.2);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      font-family: var(--font-body);
+    }
+
+    .btn-sm:hover { background: var(--gold); color: #000; }
+
+    /* PROCESS SECTION */
+    .process-section { padding: 80px 0; background: var(--bg-surface); }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0;
+      position: relative;
+    }
+
+    .process-step {
+      padding: 32px 24px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .process-step.visible { opacity: 1; transform: translateY(0); }
+
+    .process-step:not(:last-child)::after {
+      content: '→';
+      position: absolute;
+      right: -12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+      font-size: 20px;
+    }
+
+    .step-number {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: rgba(250,204,21,0.1);
+      border: 1px solid rgba(250,204,21,0.2);
+      color: var(--gold);
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .process-step h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .process-step p { color: var(--text-muted); font-size: 14px; line-height: 1.7; }
+
+    /* PRICING SECTION */
+    .pricing-section { padding: 80px 0; }
+
+    .pricing-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px 32px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-card.visible { opacity: 1; transform: translateY(0); }
+    .pricing-card.featured { border-color: var(--gold); background: linear-gradient(135deg, rgba(250,204,21,0.05), var(--bg-card)); }
+
+    .pricing-badge {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: var(--gold);
+      color: #000;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 40px;
+    }
+
+    .pricing-card h3 { font-family: var(--font-display); font-size: 20px; margin-bottom: 8px; }
+    .pricing-card .price { font-family: var(--font-display); font-size: 36px; font-weight: 800; color: var(--gold); margin: 16px 0 4px; }
+    .pricing-card .price-period { color: var(--text-dim); font-size: 13px; margin-bottom: 24px; }
+    .pricing-card .pricing-desc { color: var(--text-muted); font-size: 14px; margin-bottom: 24px; line-height: 1.7; }
+
+    .pricing-features { list-style: none; margin-bottom: 32px; text-align: left; }
+    .pricing-features li { padding: 8px 0; color: var(--text-muted); font-size: 14px; display: flex; gap: 10px; align-items: center; border-bottom: 1px solid var(--border); }
+    .pricing-features li:last-child { border-bottom: none; }
+    .pricing-features li span { color: var(--gold); font-weight: 700; }
+
+    @media (max-width: 600px) {
+      .process-step:not(:last-child)::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav-container">
+    <a href="preco.html" class="logo">Preço<span>Angola</span></a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="preco.html">Início</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="servico.html" class="active">Serviços</a></li>
+        <li><a href="contacto.html">Contactos</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" title="Alternar tema">☀️</button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">O que fazemos</span>
+      <h2>Nossos Serviços</h2>
+      <p>Informações económicas organizadas, análises de mercado e dados estratégicos para o mercado angolano.</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SERVICES WITH FILTER -->
+  <section class="section">
+    <div class="container">
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">Todos</button>
+        <button class="filter-tab" data-filter="dados">Dados de Mercado</button>
+        <button class="filter-tab" data-filter="analise">Análises</button>
+        <button class="filter-tab" data-filter="apoio">Apoio Empresarial</button>
+      </div>
+
+      <div class="grid-3" id="servicesGrid">
+
+        <div class="service-card" data-category="dados">
+          <div class="service-card-header">
+            <div class="service-icon">📈</div>
+            <span class="badge">Dados</span>
+          </div>
+          <h3>Monitorização de Preços</h3>
+          <p>Acompanhamento contínuo de preços de produtos e serviços no mercado angolano, actualizado regularmente.</p>
+          <ul class="service-features">
+            <li>Mais de 500 produtos monitorizados</li>
+            <li>Cobertura das 18 províncias</li>
+            <li>Actualizações semanais</li>
+            <li>Comparativos históricos</li>
+          </ul>
+          <div class="service-card-footer">
+            <span class="service-price">Consultar</span>
+            <a href="contacto.html" class="btn-sm">Saber mais</a>
+          </div>
+        </div>
+
+        <div class="service-card" data-category="analise">
+          <div class="service-card-header">
+            <div class="service-icon">📊</div>
+            <span class="badge">Análise</span>
+          </div>
+          <h3>Análises Económicas</h3>
+          <p>Relatórios e análises detalhadas sobre tendências económicas, inflação e comportamento do mercado angolano.</p>
+          <ul class="service-features">
+            <li>Relatórios mensais e trimestrais</li>
+            <li>Análise sectorial aprofundada</li>
+            <li>Indicadores macroeconómicos</li>
+            <li>Previsões de mercado</li>
+          </ul>
+          <div class="service-card-footer">
+            <span class="service-price">Consultar</span>
+            <a href="contacto.html" class="btn-sm">Saber mais</a>
+          </div>
+        </div>
+
+        <div class="service-card" data-category="dados">
+          <div class="service-card-header">
+            <div class="service-icon">🎯</div>
+            <span class="badge">Dados</span>
+          </div>
+          <h3>Informações Estratégicas</h3>
+          <p>Dados organizados e contextualizados para apoiar decisões comerciais e empresariais com maior confiança.</p>
+          <ul class="service-features">
+            <li>Painéis de dados personalizados</li>
+            <li>Exportação em vários formatos</li>
+            <li>Acesso à API de dados</li>
+            <li>Suporte dedicado</li>
+          </ul>
+          <div class="service-card-footer">
+            <span class="service-price">Consultar</span>
+            <a href="contacto.html" class="btn-sm">Saber mais</a>
+          </div>
+        </div>
+
+        <div class="service-card" data-category="analise">
+          <div class="service-card-header">
+            <div class="service-icon">🔬</div>
+            <span class="badge">Análise</span>
+          </div>
+          <h3>Estudos de Mercado</h3>
+          <p>Pesquisa profunda de oportunidades, sectores em crescimento e tendências de consumo no mercado angolano.</p>
+          <ul class="service-features">
+            <li>Estudos de viabilidade</li>
+            <li>Análise da concorrência</li>
+            <li>Perfis de consumidor</li>
+            <li>Mapeamento de oportunidades</li>
+          </ul>
+          <div class="service-card-footer">
+            <span class="service-price">Consultar</span>
+            <a href="contacto.html" class="btn-sm">Saber mais</a>
+          </div>
+        </div>
+
+        <div class="service-card" data-category="apoio">
+          <div class="service-card-header">
+            <div class="service-icon">🤝</div>
+            <span class="badge">Apoio</span>
+          </div>
+          <h3>Apoio ao Empreendedor</h3>
+          <p>Recursos, informações e orientação pensados especificamente para empreendedores, investidores e pequenos negócios.</p>
+          <ul class="service-features">
+            <li>Guias de entrada no mercado</li>
+            <li>Análise de riscos</li>
+            <li>Networking e parcerias</li>
+            <li>Mentoria económica</li>
+          </ul>
+          <div class="service-card-footer">
+            <span class="service-price">Consultar</span>
+            <a href="contacto.html" class="btn-sm">Saber mais</a>
+          </div>
+        </div>
+
+        <div class="service-card" data-category="dados">
+          <div class="service-card-header">
+            <div class="service-icon">📰</div>
+            <span class="badge">Dados</span>
+          </div>
+          <h3>Actualizações do Mercado</h3>
+          <p>Boletim informativo com notícias e mudanças relevantes da economia e do comércio em Angola em primeira mão.</p>
+          <ul class="service-features">
+            <li>Newsletter semanal</li>
+            <li>Alertas de preços</li>
+            <li>Resumo de notícias económicas</li>
+            <li>Análise de políticas</li>
+          </ul>
+          <div class="service-card-footer">
+            <span class="service-price">Gratuito</span>
+            <a href="contacto.html" class="btn-sm">Subscrever</a>
+          </div>
+        </div>
+
+        <div class="service-card" data-category="apoio">
+          <div class="service-card-header">
+            <div class="service-icon">🏢</div>
+            <span class="badge">Apoio</span>
+          </div>
+          <h3>Consultoria Empresarial</h3>
+          <p>Sessões de consultoria personalizadas para empresas que precisam de orientação estratégica com base em dados de mercado.</p>
+          <ul class="service-features">
+            <li>Diagnóstico de negócio</li>
+            <li>Planos de crescimento</li>
+            <li>Análise de mercado-alvo</li>
+            <li>Relatório final detalhado</li>
+          </ul>
+          <div class="service-card-footer">
+            <span class="service-price">Consultar</span>
+            <a href="contacto.html" class="btn-sm">Saber mais</a>
+          </div>
+        </div>
+
+        <div class="service-card" data-category="analise">
+          <div class="service-card-header">
+            <div class="service-icon">🌾</div>
+            <span class="badge">Análise</span>
+          </div>
+          <h3>Sector Agronegócio</h3>
+          <p>Análises específicas para o sector agrícola e agroalimentar angolano, com preços de campo e tendências sazonais.</p>
+          <ul class="service-features">
+            <li>Preços em campo e mercado</li>
+            <li>Calendário sazonal</li>
+            <li>Cadeias de valor</li>
+            <li>Oportunidades de exportação</li>
+          </ul>
+          <div class="service-card-footer">
+            <span class="service-price">Consultar</span>
+            <a href="contacto.html" class="btn-sm">Saber mais</a>
+          </div>
+        </div>
+
+        <div class="service-card" data-category="apoio">
+          <div class="service-card-header">
+            <div class="service-icon">📱</div>
+            <span class="badge">Apoio</span>
+          </div>
+          <h3>Relatórios Digitais</h3>
+          <p>Acesso a relatórios em formato digital, optimizados para consulta em qualquer dispositivo a qualquer hora.</p>
+          <ul class="service-features">
+            <li>PDF e Excel interactivos</li>
+            <li>Dashboards visuais</li>
+            <li>Histórico de 12 meses</li>
+            <li>Partilha em equipa</li>
+          </ul>
+          <div class="service-card-footer">
+            <span class="service-price">Consultar</span>
+            <a href="contacto.html" class="btn-sm">Saber mais</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process-section">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:48px;">
+        <span class="badge">Como funciona</span>
+        <h2 style="font-family:var(--font-display);font-size:clamp(26px,4vw,36px);font-weight:800;margin-top:16px;">Do dado à decisão</h2>
+        <p style="color:var(--text-muted);max-width:500px;margin:12px auto 0;">O nosso processo garante que recebe informação precisa, contextualizada e accionável.</p>
+      </div>
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="step-number">1</div>
+          <h4>Recolha</h4>
+          <p>Recolhemos dados de mercados, lojas, plataformas e fontes oficiais em todo o país.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-number">2</div>
+          <h4>Tratamento</h4>
+          <p>Os dados são validados, limpos e organizados para garantir precisão e consistência.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-number">3</div>
+          <h4>Análise</h4>
+          <p>Aplicamos metodologias económicas para transformar dados em inteligência de mercado.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-number">4</div>
+          <h4>Entrega</h4>
+          <p>Disponibilizamos a informação em formatos claros e práticos para o utilizador final.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing-section">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:48px;">
+        <span class="badge">Planos</span>
+        <h2 style="font-family:var(--font-display);font-size:clamp(26px,4vw,36px);font-weight:800;margin-top:16px;">Escolha o seu plano</h2>
+        <p style="color:var(--text-muted);max-width:480px;margin:12px auto 0;">Planos flexíveis para cada necessidade, do empreendedor individual à grande empresa.</p>
+      </div>
+      <div class="grid-3">
+        <div class="pricing-card">
+          <h3>Básico</h3>
+          <div class="price">Grátis</div>
+          <div class="price-period">Para sempre</div>
+          <p class="pricing-desc">Perfeito para quem quer começar a acompanhar o mercado angolano.</p>
+          <ul class="pricing-features">
+            <li><span>✓</span> Newsletter semanal</li>
+            <li><span>✓</span> Dados básicos de preços</li>
+            <li><span>✓</span> 3 relatórios mensais</li>
+            <li><span>✗</span> Análises aprofundadas</li>
+            <li><span>✗</span> Suporte prioritário</li>
+          </ul>
+          <a href="contacto.html" class="btn btn-outline" style="width:100%;justify-content:center;">Começar grátis</a>
+        </div>
+        <div class="pricing-card featured">
+          <div class="pricing-badge">Popular</div>
+          <h3>Profissional</h3>
+          <div class="price">Consultar</div>
+          <div class="price-period">Por mês</div>
+          <p class="pricing-desc">Para empreendedores e pequenas empresas que precisam de dados de qualidade.</p>
+          <ul class="pricing-features">
+            <li><span>✓</span> Tudo do plano Básico</li>
+            <li><span>✓</span> Relatórios ilimitados</li>
+            <li><span>✓</span> Análises económicas mensais</li>
+            <li><span>✓</span> Alertas de preços</li>
+            <li><span>✓</span> Suporte por WhatsApp</li>
+          </ul>
+          <a href="contacto.html" class="btn btn-primary" style="width:100%;justify-content:center;">Contactar →</a>
+        </div>
+        <div class="pricing-card">
+          <h3>Empresarial</h3>
+          <div class="price">Custom</div>
+          <div class="price-period">Sob medida</div>
+          <p class="pricing-desc">Para empresas e investidores com necessidades específicas de inteligência de mercado.</p>
+          <ul class="pricing-features">
+            <li><span>✓</span> Tudo do plano Pro</li>
+            <li><span>✓</span> Estudos personalizados</li>
+            <li><span>✓</span> Consultoria dedicada</li>
+            <li><span>✓</span> API de dados</li>
+            <li><span>✓</span> Gestor de conta exclusivo</li>
+          </ul>
+          <a href="contacto.html" class="btn btn-outline" style="width:100%;justify-content:center;">Falar connosco</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h2>PreçoAngola</h2>
+        <p>Plataforma focada em informações estratégicas e análises do mercado angolano.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Navegação</h3>
+        <ul>
+          <li><a href="preco.html">Início</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="servico.html">Serviços</a></li>
+          <li><a href="contacto.html">Contactos</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contacto</h3>
+        <ul>
+          <li><span>+244 922 579 627</span></li>
+          <li><span>joadilsonv01@gmail.com</span></li>
+          <li><span>Talatona, Belas — ISPTEC</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Preço Angola. Todos os direitos reservados.</p>
+      <div class="footer-links"><a href="#">Privacidade</a><a href="#">Termos</a></div>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" title="Voltar ao topo">↑</button>
+<div id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>

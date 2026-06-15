@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contacte a Preço Angola — informações, parcerias ou suporte.">
+  <title>Preço Angola — Contactos</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* CONTACT LAYOUT */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 48px;
+      padding: 80px 0;
+      align-items: start;
+    }
+
+    /* INFO SIDE */
+    .contact-info { display: flex; flex-direction: column; gap: 20px; }
+
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: var(--transition);
+    }
+
+    .info-card.visible { opacity: 1; transform: translateX(0); }
+    .info-card:hover { border-color: var(--gold); }
+
+    .info-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: rgba(250,204,21,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .info-label { font-size: 12px; color: var(--text-dim); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+    .info-value { font-size: 16px; font-weight: 600; }
+    .info-sub { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+    /* SOCIAL */
+    .social-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: var(--transition);
+    }
+
+    .social-section.visible { opacity: 1; transform: translateX(0); }
+
+    .social-section h4 { font-size: 14px; font-weight: 700; margin-bottom: 16px; }
+
+    .social-links { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 40px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .social-link:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* FORM SIDE */
+    .contact-form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      opacity: 0;
+      transform: translateX(20px);
+      transition: var(--transition);
+    }
+
+    .contact-form-card.visible { opacity: 1; transform: translateX(0); }
+
+    .contact-form-card h3 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .contact-form-card > p { color: var(--text-muted); font-size: 15px; margin-bottom: 28px; }
+
+    /* FORM */
+    .form-group { margin-bottom: 20px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-size: 15px;
+      font-family: var(--font-body);
+      transition: var(--transition);
+      outline: none;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(250,204,21,0.1);
+    }
+
+    textarea { min-height: 130px; resize: vertical; }
+
+    select option { background: var(--bg-card); }
+
+    .form-submit {
+      width: 100%;
+      padding: 16px;
+      background: var(--gold);
+      color: #000;
+      border: none;
+      border-radius: 40px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: var(--font-body);
+      margin-top: 8px;
+    }
+
+    .form-submit:hover { background: #fde047; transform: translateY(-2px); }
+    .form-submit:active { transform: translateY(0); }
+
+    /* FAQ SECTION */
+    .faq-section { padding: 80px 0; background: var(--bg-surface); }
+
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 12px;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: var(--transition);
+    }
+
+    .faq-item.visible { opacity: 1; transform: translateY(0); }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      background: var(--bg-card);
+      border: none;
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--font-body);
+      transition: var(--transition);
+    }
+
+    .faq-question:hover { background: var(--bg-card-hover); }
+    .faq-question .faq-icon { color: var(--gold); font-size: 20px; transition: var(--transition); flex-shrink: 0; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+    }
+
+    .faq-answer p {
+      padding: 20px 24px;
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .faq-item.open .faq-answer { max-height: 300px; }
+
+    /* NEWSLETTER */
+    .newsletter-section { padding: 80px 0; }
+
+    .newsletter-card {
+      background: linear-gradient(135deg, rgba(250,204,21,0.07), rgba(250,204,21,0.02));
+      border: 1px solid rgba(250,204,21,0.2);
+      border-radius: var(--radius);
+      padding: 60px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: var(--transition);
+    }
+
+    .newsletter-card.visible { opacity: 1; transform: translateY(0); }
+
+    .newsletter-card h3 {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .newsletter-card h3 span { color: var(--gold); }
+    .newsletter-card p { color: var(--text-muted); font-size: 16px; margin-bottom: 32px; }
+
+    .newsletter-form {
+      display: flex;
+      gap: 12px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .newsletter-form input { border-radius: 40px; padding: 14px 22px; }
+    .newsletter-form button { flex-shrink: 0; }
+
+    @media (max-width: 768px) {
+      .contact-layout { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-card { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav-container">
+    <a href="preco.html" class="logo">Preço<span>Angola</span></a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="preco.html">Início</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="servico.html">Serviços</a></li>
+        <li><a href="contacto.html" class="active">Contactos</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" title="Alternar tema">☀️</button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Fale Connosco</span>
+      <h2>Contactos</h2>
+      <p>Entre em contacto para informações, parcerias ou suporte. Estamos aqui para ajudar o seu negócio a crescer com dados de qualidade.</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- MAIN CONTACT SECTION -->
+  <section class="container">
+    <div class="contact-layout">
+
+      <!-- INFO -->
+      <div class="contact-info">
+
+        <div class="info-card">
+          <div class="info-icon">📞</div>
+          <div>
+            <div class="info-label">Telefone / WhatsApp</div>
+            <div class="info-value">+244 922 579 627</div>
+            <div class="info-sub">Seg–Sex, 8h–18h (WAT)</div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">✉️</div>
+          <div>
+            <div class="info-label">Email</div>
+            <div class="info-value">joadilsonv01@gmail.com</div>
+            <div class="info-sub">Resposta em até 24 horas</div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">📍</div>
+          <div>
+            <div class="info-label">Endereço</div>
+            <div class="info-value">ISPTEC — Talatona</div>
+            <div class="info-sub">Belas, Luanda, Angola</div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">🕐</div>
+          <div>
+            <div class="info-label">Horário de Funcionamento</div>
+            <div class="info-value">Segunda a Sexta</div>
+            <div class="info-sub">08:00 — 18:00 (Hora de Angola)</div>
+          </div>
+        </div>
+
+        <div class="social-section">
+          <h4>Redes Sociais</h4>
+          <div class="social-links">
+            <a href="#" class="social-link">💼 LinkedIn</a>
+            <a href="#" class="social-link">📸 Instagram</a>
+            <a href="#" class="social-link">🐦 Twitter/X</a>
+            <a href="#" class="social-link">📘 Facebook</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FORM -->
+      <div class="contact-form-card">
+        <h3>Envie uma mensagem</h3>
+        <p>Preencha o formulário e entraremos em contacto em breve.</p>
+
+        <form id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">Nome</label>
+              <input type="text" id="firstName" placeholder="Ex: João" required>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Apelido</label>
+              <input type="text" id="lastName" placeholder="Ex: Silva" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="joao@exemplo.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Telefone (opcional)</label>
+            <input type="tel" id="phone" placeholder="+244 9xx xxx xxx">
+          </div>
+
+          <div class="form-group">
+            <label for="subject">Assunto</label>
+            <select id="subject" required>
+              <option value="" disabled selected>Seleccione o assunto</option>
+              <option value="info">Informações gerais</option>
+              <option value="servicos">Sobre serviços</option>
+              <option value="parceria">Parceria comercial</option>
+              <option value="imprensa">Imprensa / Media</option>
+              <option value="outro">Outro assunto</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Mensagem</label>
+            <textarea id="message" placeholder="Descreva o seu pedido ou questão..." required></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">Enviar mensagem →</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:48px;">
+        <span class="badge">FAQ</span>
+        <h2 style="font-family:var(--font-display);font-size:clamp(26px,4vw,36px);font-weight:800;margin-top:16px;">Perguntas Frequentes</h2>
+        <p style="color:var(--text-muted);max-width:480px;margin:12px auto 0;">As respostas às dúvidas mais comuns sobre a Preço Angola.</p>
+      </div>
+      <div style="max-width:720px;margin:0 auto;">
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Como funciona a monitorização de preços?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>A nossa equipa recolhe dados de preços em mercados, supermercados, plataformas online e fontes oficiais em todo o país. Os dados são validados, organizados e disponibilizados em relatórios e dashboards para os nossos clientes.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Com que frequência os dados são actualizados?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Dependendo do plano contratado, os dados podem ser actualizados semanalmente ou mensalmente. Os relatórios principais são publicados mensalmente, com alertas de variações significativas em tempo quase real.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Posso aceder a dados de províncias específicas?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Sim. Os nossos planos profissionais e empresariais permitem filtrar dados por província, sector e categoria de produto. A cobertura principal é Luanda, com expansão progressiva para as restantes províncias.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Oferecem estudos de mercado personalizados?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Sim, através do nosso plano Empresarial. Podemos realizar estudos de mercado à medida, análises de viabilidade, pesquisas de consumidor e relatórios sectoriais específicos para as necessidades da sua empresa.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Como posso tornar-me parceiro da Preço Angola?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Estamos abertos a parcerias com empresas, investigadores, media e instituições académicas. Entre em contacto através do formulário acima ou directamente pelo WhatsApp, indicando "Parceria" no assunto.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-card">
+        <h3>Receba o mercado <span>na sua caixa de entrada</span></h3>
+        <p>Subscreva a nossa newsletter semanal com análises económicas, variações de preços e oportunidades de negócio em Angola.</p>
+        <form class="newsletter-form" id="newsletterForm">
+          <input type="email" placeholder="o-seu-email@exemplo.com" required>
+          <button type="submit" class="btn btn-primary">Subscrever →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h2>PreçoAngola</h2>
+        <p>Plataforma angolana focada em informações estratégicas, preços de mercado, análises económicas e oportunidades de negócio.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Navegação</h3>
+        <ul>
+          <li><a href="preco.html">Início</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="servico.html">Serviços</a></li>
+          <li><a href="contacto.html">Contactos</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contacto</h3>
+        <ul>
+          <li><span>+244 922 579 627</span></li>
+          <li><span>joadilsonv01@gmail.com</span></li>
+          <li><span>Talatona, Belas — ISPTEC</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Preço Angola. Todos os direitos reservados.</p>
+      <div class="footer-links"><a href="#">Privacidade</a><a href="#">Termos</a></div>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" title="Voltar ao topo">↑</button>
+<div id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>
